@@ -5,12 +5,30 @@ require 'gapi.class.php';
 /**
  *   Multiple Profile Google Analytics Tool - MPGAT
  * 
- * - keep an overview of all your different google analytics profiles
+ * - no warranty for anything, usage at own risk
+ * - licenced under GPL http://www.gnu.org/licenses/gpl.html
+ * 
+ * - provides an overview of all your different google analytics profiles
+ * - no more need to click around in google analytics just to check today's visitors of all projects
  * - provides a useful grid of your profiles
  * - highly customizeable
  * - well defined default values  
  * - metrics and dimensions can be found here: http://ga-dev-tools.appspot.com/explorer/
  * 
+ *  USAGE
+ *  1) rename config.default.php to config.php
+ *  2) change the $profiles array to your profile data 
+ *  3) call index.php 
+ *  curl must be enabled 
+ * 
+ *  CAUTION
+ *  if you use this program for a lot of profiles with a lot of dimensions, a lot of
+ *  requests to google analytics are fired: you can get an error message for that and you will have
+ *  to wait some time in order to use this program again
+ *  i did not have any problems for about 20 profiles with 5 dimensions (average) => 100 requests, fired max 5 times a day
+ *  that's enough to keep track of what's going on on your sites
+ *  for detailed information use google anayltics web interface found on http://www.google.com/analytics  
+ *
  * requires gapi.class.php (http://code.google.com/p/gapi-google-analytics-php-interface/)
  * 
  * @author Mario Rothauer <office@rothauerwebsites.com>
@@ -167,7 +185,7 @@ class GapiWrapper {
   			,'referer' =>
 		  			array(
 		  					 'dimensions' => array('source', 'referralPath')
-		  					,'name' => 'Quelle'
+		  					,'name' => 'Referer'
 		  					,'viewFilter' => '(not set|google|bing|suche\.t\-online\.de|direct)'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
@@ -176,7 +194,7 @@ class GapiWrapper {
   			,'pages' =>
 		  			array(
 		  					 'dimensions' => 	array('hostname', 'pagePath')
-		  					,'name' => 'Seite'
+		  					,'name' => 'Pages'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
 		  					,'filter' => $this->defaultFilter
@@ -193,7 +211,7 @@ class GapiWrapper {
   			,'cities' =>
 		  			array(
 		  					 'dimensions' =>	array('city')
-		  					,'name' => 'Stadt'
+		  					,'name' => 'City'
 		  					,'viewFilter' => 'not set'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
@@ -202,7 +220,7 @@ class GapiWrapper {
   			,'countries' =>
 		  			array(
 		  					 'dimensions' => array('country')
-		  					,'name' => 'Land'
+		  					,'name' => 'Country'
 		  					,'viewFilter' => 'not set'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
@@ -211,7 +229,7 @@ class GapiWrapper {
   			,'languages' =>
 		  			array(
 		  					 'dimensions' => array('language')
-		  					,'name' => 'Sprache'
+		  					,'name' => 'Language'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
 		  					,'filter' => $this->defaultFilter
@@ -219,7 +237,7 @@ class GapiWrapper {
   			,'screenResolutions' =>
 		  			array(
 		  					 'dimensions' => array('screenResolution')
-		  					,'name' => 'Auflösung'
+		  					,'name' => 'Resolution'
 		  					,'metrics' => $this->defaultMetrics
 		  					,'sort' => $this->defaultSort
 		  					,'filter' => $this->defaultFilter
@@ -316,14 +334,12 @@ class GapiWrapper {
    */
   public function getPeriodLinks() {
   	$links = '
-  		<a href="/analytics/?period=last-0">heute - </a>
-	  	<a href="/analytics/?period=last-1">gestern - </a>
-	  	<a href="/analytics/?period=last-2">2 Tage - </a>
-	  	<a href="/analytics/?period=last-3">3 Tage - </a>
-	  	<a href="/analytics/?period=last-7">7 Tage - </a>
-	  	<a href="/analytics/?period=last-14">14 Tage - </a>
-	  	<a href="/analytics/?period=last-30">30 Tage - </a>
-	  	<a href="/analytics/?period=last-100">100 Tage</a>';
+  		<a href="/analytics/?period=last-0">today - </a>
+	  	<a href="/analytics/?period=last-1">yesterday - </a>
+	  	<a href="/analytics/?period=last-2">2 days - </a>
+	  	<a href="/analytics/?period=last-7">7 days - </a>
+	  	<a href="/analytics/?period=last-30">30 days - </a>
+	  	<a href="/analytics/?period=last-100">100 days</a>';
   	return $links;
   }
   
