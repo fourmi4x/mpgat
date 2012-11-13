@@ -338,12 +338,12 @@ class MPGAT {
    */
   public function getPeriodLinks() {
   	$links = '
-  		<a href="/?period=last-0">today - </a>
-	  	<a href="/?period=last-1">yesterday - </a>
-	  	<a href="/?period=last-2">2 days - </a>
-	  	<a href="/?period=last-7">7 days - </a>
-	  	<a href="/?period=last-30">30 days - </a>
-	  	<a href="/?period=last-100">100 days</a>';
+  		<a href="?period=last-0">today - </a>
+	  	<a href="?period=last-1">yesterday - </a>
+	  	<a href="?period=last-2">2 days - </a>
+	  	<a href="?period=last-7">7 days - </a>
+	  	<a href="?period=last-30">30 days - </a>
+	  	<a href="?period=last-100">100 days</a>';
   	return $links;
   }
   
