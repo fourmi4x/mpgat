@@ -1,6 +1,6 @@
 <?php
 
-  require 'gapi.wrapper.class.php';
+  require 'mpgat.class.php';
   
   //change your google analytics login data here
   $gaw = new GapiWrapper('user@gmail.com', 'password');

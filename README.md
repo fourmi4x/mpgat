@@ -24,6 +24,7 @@
  * 3) change the $profiles array to your profile data
  * 4) enable curl (if not already enabled) 
  * 5) call index.php 
+ * 6) click on a link on the top left corner
  * 
  * CAUTION
  * if you use this program for a lot of profiles with a lot of dimensions, a lot of

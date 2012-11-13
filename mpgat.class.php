@@ -27,7 +27,8 @@ require 'gapi.class.php';
  * 2) rename config.default.php to config.php
  * 3) change the $profiles array to your profile data
  * 4) enable curl (if not already enabled) 
- * 5) call index.php 
+ * 5) call index.php
+ * 6) click on a link on the top left corner
  * 
  * CAUTION
  * if you use this program for a lot of profiles with a lot of dimensions, a lot of
@@ -337,12 +338,12 @@ class MPGAT {
    */
   public function getPeriodLinks() {
   	$links = '
-  		<a href="/analytics/?period=last-0">today - </a>
-	  	<a href="/analytics/?period=last-1">yesterday - </a>
-	  	<a href="/analytics/?period=last-2">2 days - </a>
-	  	<a href="/analytics/?period=last-7">7 days - </a>
-	  	<a href="/analytics/?period=last-30">30 days - </a>
-	  	<a href="/analytics/?period=last-100">100 days</a>';
+  		<a href="/?period=last-0">today - </a>
+	  	<a href="/?period=last-1">yesterday - </a>
+	  	<a href="/?period=last-2">2 days - </a>
+	  	<a href="/?period=last-7">7 days - </a>
+	  	<a href="/?period=last-30">30 days - </a>
+	  	<a href="/?period=last-100">100 days</a>';
   	return $links;
   }
   
