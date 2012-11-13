@@ -25,9 +25,9 @@ require 'gapi.class.php';
  * USAGE
  * 1) download gapi.class.php from http://code.google.com/p/gapi-google-analytics-php-interface and copy it in same folder
  * 2) rename config.default.php to config.php
- * 3) change the $profiles array to your profile data 
- * 4) call index.php 
- * curl must be enabled 
+ * 3) change the $profiles array to your profile data
+ * 4) enable curl (if not already enabled) 
+ * 5) call index.php 
  * 
  * CAUTION
  * if you use this program for a lot of profiles with a lot of dimensions, a lot of
