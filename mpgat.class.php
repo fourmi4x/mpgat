@@ -38,7 +38,7 @@ require 'gapi.class.php';
  * for detailed information use google anayltics web interface found on http://www.google.com/analytics  
  * 
  */
-class GapiWrapper {
+class MPGAT {
   
   /**
    * @var gapi

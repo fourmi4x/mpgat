@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="de-DE">
 <head>
   <meta http-equiv="content-type" content="text/html; charset=utf-8" />
-  <title>Analytics | Rothauer Websites</title>
+  <title>MPGAT - Multiple Profile Google Analytics Tool | Mario Rothauer</title>
   <link rel="stylesheet" type="text/css" href="style.css" />
 </head>
 
@@ -14,43 +14,43 @@
 
 	// first period has to be chosen
 	if (!isset($_GET['period'])) {
-		echo $gaw->getPeriodLinks();
+		echo $mpgat->getPeriodLinks();
 		echo '</body></html>';
 		return;
 	}
   
-  $gaw->connect();
+  $mpgat->connect();
   
-  $today = $gaw->getToday();
+  $today = $mpgat->getToday();
   $endDate = $today;
-  $startDate = $gaw->getStartDate($_GET['period']);
+  $startDate = $mpgat->getStartDate($_GET['period']);
   
   $outputNavi = '<div class="header">';
   	$outputNavi .= '<a href="javascript:void(0);">'.$startDate .' - '. $endDate.'</a>';
-  	$outputNavi .= $gaw->getPeriodLinks();
+  	$outputNavi .= $mpgat->getPeriodLinks();
   $outputNavi .= '</div>';
   echo $outputNavi;
   
 ?>
 
-<div id="wrapper" style="width:<?php echo $gaw->getWrapperWidth();?>">
+<div id="wrapper" style="width:<?php echo $mpgat->getWrapperWidth();?>">
   
 <?php
 
 	$output = '';
 
-  foreach($gaw->getProfiles() as $profileId => $profile) {
+  foreach($mpgat->getProfiles() as $profileId => $profile) {
   
     $outputRequests = '';
     $outputRequestData = '';
     
-    foreach($gaw->getRequests($profileId) as $key => $request) {
+    foreach($mpgat->getRequests($profileId) as $key => $request) {
     	
-      $results = $gaw->getReportData($profileId, $request['dimensions'], $request['metrics'], $request['sort'], $request['filter'], $startDate, $endDate);
+      $results = $mpgat->getReportData($profileId, $request['dimensions'], $request['metrics'], $request['sort'], $request['filter'], $startDate, $endDate);
       
       //collect total data
       if ($key == 'pages') {
-      	$totalData = $gaw->getGa()->getMetrics();
+      	$totalData = $mpgat->getGa()->getMetrics();
       	$totalVisits = $totalData['visits'];
       	$totalPageviews = $totalData['pageviews'];
       	$totalUniquePageviews = $totalData['uniquePageviews'];
@@ -73,10 +73,10 @@
             
             foreach($request['metrics'] as $metric) {
             	$getMethod = 'get'.ucfirst($metric);
-            	$outputRequestData .= '<td>'.$gaw->formatMetric($metric, $result->$getMethod()).'</td>';
+            	$outputRequestData .= '<td>'.$mpgat->formatMetric($metric, $result->$getMethod()).'</td>';
             }
             
-            $outputRequestData .= '<td>'.$gaw->getRequestOutput($key, $result).'</td>';
+            $outputRequestData .= '<td>'.$mpgat->getRequestOutput($key, $result).'</td>';
             
           $outputRequestData .= '</tr>';
         
