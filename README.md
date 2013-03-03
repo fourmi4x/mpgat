@@ -1,5 +1,7 @@
+Multiple Profile Google Analytics Tool - MPGAT
+==============================================
+
 /**
- * Multiple Profile Google Analytics Tool - MPGAT
  * 
  * Copyright (c) 2012 Mario Rothauer
  * www.rothauerwebsites.com
