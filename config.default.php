@@ -3,7 +3,7 @@
   require 'mpgat.class.php';
   
   //change your google analytics login data here
-  $gaw = new GapiWrapper('user@gmail.com', 'password');
+  $mpgat = new MPGAT('user@gmail.com', 'password');
 
   $profiles = array(
       
