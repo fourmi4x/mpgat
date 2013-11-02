@@ -2,18 +2,20 @@
 
   require 'mpgat.class.php';
   
-  //change your google analytics login data here
+  // Change your google analytics login data here
   $mpgat = new MPGAT('user@gmail.com', 'password');
 
   $profiles = array(
       
-    // quick example with default configuration    
+    // Quick example with default configuration
+    // The ID number below ("12345678") is the ID of your GA project.
+    // You can find it using http://ga-dev-tools.appspot.com/explorer/
     12345678 => array(
-        'name' => 'yourdomain1.com'
-       ,'predefinedRequests' => array('keywords', 'pages', 'referer', 'cities')
+        'name' => 'yourdomain1.com' // This is simply the name that will appear on your dashboard
+       ,'predefinedRequests' => array('keywords', 'pages', 'referer', 'cities') // see mpgat.class.php for all available parameters
     )
 
-      // example with event tracking
+      // Example with event tracking
     ,87654321 => array(
         'name' => 'yourdomain2.com'
         ,'predefinedRequests' => array('keywords', 'pages', 'referer', 'cities')
