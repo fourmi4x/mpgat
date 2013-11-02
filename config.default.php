@@ -30,6 +30,6 @@
       
   );
   
-  $gaw->setProfiles($profiles);
+  $mpgat->setProfiles($profiles);
   
 ?>
