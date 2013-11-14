@@ -67,14 +67,12 @@ class MPGAT {
    * @param string $email
    * @param string $password
    */
-  public function __construct($email, $password) {
-      $this->email = $email;
-      $this->password = $password;
+  public function __construct() {
       $this->setPredefinedRequests();
   }
   
-  public function connect() {
-      $this->ga = new gapi($this->email, $this->password);
+  public function connect($email, $password) {
+      $this->ga = new gapi($email, $password);
   }
   
   /**

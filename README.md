@@ -13,9 +13,10 @@ Multiple Profile Google Analytics Tool - MPGAT
  * 
  * - no warranty for anything, usage at own risk
  * 
- * - provides an overview of all your different google analytics profiles
+ * - provides an overview of all your different google analytics profiles / accounts
  * - no more need to click around in google analytics just to check today's visitors of all projects
  * - provides a useful grid of your profiles
+ * - provides also graphical dashboard with charts
  * - highly customizeable
  * - well defined default values  
  * - metrics and dimensions can be found here: http://ga-dev-tools.appspot.com/explorer/

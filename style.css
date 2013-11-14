@@ -13,14 +13,13 @@ a, a:hover, a:visited, a:active {
 a:hover {
     color: #8296b9;
 }
-div.header {
-    float: left;
-    width: 100%;
-    margin-bottom: 10px;
+div.nav {
+    margin: 0 auto;
+    width: 700px;
+    margin-bottom: 15px;
+    text-align: center;
 }
-div.header a {
-    float: left;
-    margin-right: 5px;
+div.nav a {
 }
 .profile-box {
     float: left;
@@ -84,4 +83,36 @@ table td.icon,
 table th.icon {
     text-align: center;
     padding: 2px ! important;
+}
+
+/* topbar */
+.topbar {
+    float: left;
+    clear: left;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    margin: 0 0 15px 0;
+}
+.maintitle {
+    font-size: 20px;
+    font-weight: bold;
+    display: block;
+    float: left;
+    width: 40%;
+    padding: 5px 5% 10px 5%;
+}
+.switch {
+    font-size: 16px;
+    display: block;
+    float: right;
+    width: 40%;
+    padding: 10px 5% 5px 5%;
+    text-align: right;
+}
+
+/* graphs */
+.chart {
+    float: left;
+    clear: left;
+    display: block;
 }

@@ -8,25 +8,33 @@
 
 <body>
 
+    <div class="topbar">
+        <div class="maintitle">Multiple profile google analytics tool</div>
+        <div class="switch"><a href="graphs.php">Switch to graphical dashboard</div>
+    </div>  
+    
+    
 <?php
 
     require 'config.php';
 
+    /* -------- Period choice -------- */
+
     // first period has to be chosen
     if (!isset($_GET['period'])) {
-        echo $mpgat->getPeriodLinks();
-        echo '</body></html>';
+        $outputNavi = '<div class="nav">';
+            $outputNavi .= $mpgat->getPeriodLinks();
+        $outputNavi .= '</div>';
+        echo $outputNavi;
         return;
     }
-  
-  $mpgat->connect();
-  
+
   $today = $mpgat->getToday();
   $endDate = $today;
   $startDate = $mpgat->getStartDate($_GET['period']);
   
-  $outputNavi = '<div class="header">';
-      $outputNavi .= '<a href="javascript:void(0);">'.$startDate .' - '. $endDate.'</a>';
+  $outputNavi = '<div class="nav">';
+      $outputNavi .= '<a href="javascript:void(0);">Current: '.$startDate .' - '. $endDate.'</a> --------- Change period: ';
       $outputNavi .= $mpgat->getPeriodLinks();
   $outputNavi .= '</div>';
   echo $outputNavi;
@@ -36,11 +44,13 @@
 <div id="wrapper" style="width:<?php echo $mpgat->getWrapperWidth();?>">
   
     <?php
-    
+        /* -------- Tables generation -------- */
         $output = '';
     
         foreach($mpgat->getProfiles() as $profileId => $profile) {
-      
+            
+            $mpgat->connect($profile['email'], $profile['password']);
+            
             $outputRequests = '';
             $outputRequestData = '';
             
