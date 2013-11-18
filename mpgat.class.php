@@ -318,6 +318,7 @@ class MPGAT {
           <a href="?period=last-2">2 days - </a>
           <a href="?period=last-7">7 days - </a>
           <a href="?period=last-30">30 days - </a>
+          <a href="?period=last-60">60 days - </a>
           <a href="?period=last-100">100 days</a>';
       return $links;
   }

@@ -5,24 +5,27 @@
     <title>MPGAT - Multiple Profile Google Analytics Tool | Mario Rothauer</title>
     <link rel="stylesheet" type="text/css" href="style.css" />
     
-    
     <script type="text/javascript" src="https://www.google.com/jsapi"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.js"></script>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.js"></script>
+    <script type="text/javascript">google.load("visualization", "1", {packages:["corechart"]});</script>
+
 </head>
   
 
 <body>
-      
+
     <div class="topbar">
         <div class="maintitle">Multiple profile google analytics tool</div>
         <div class="switch"><a href="index.php">Switch to table dashboard</div>
     </div>       
-    
     
 <?php
 
 require 'config.php';
 
 /* -------- Period choice -------- */
+
 // first period has to be chosen
 if (!isset($_GET['period'])) {
     $outputNavi = '<div class="nav">';
@@ -44,70 +47,74 @@ echo $outputNavi;
 
 
 /* -------- Graphs generation -------- */
+
 foreach($mpgat->getProfiles() as $profileId => $profile) {
     
-    $mpgat->connect($profile['email'], $profile['password']);
+    //Divs that will hold the pie charts
+    print "<div class='chart' id='" . $profileId . "'></div>";
     
-    //https://code.google.com/p/gapi-google-analytics-php-interface/wiki/GAPIDocumentation
-    //$ga->requestReportData(59999293,array('date','month'),array('visitors'), array('date'), null, '2013-09-01', '2013-10-01', 1, 32);
-    //cf. http://stackoverflow.com/questions/4835959/hourly-visits-data-from-google-analytics-api-and-gapi-class-php
-    $mpgat->getGa()->requestReportData($profileId,array('date','month'),array('visitors'), array('date'), null, $startDate, $endDate, 1, 32);
+    $mpgat->connect($profile['email'], $profile['password']);
 
-    print "
-        <!--Load the AJAX API-->
+    // cf. https://code.google.com/p/gapi-google-analytics-php-interface/wiki/GAPIDocumentation
+    $mpgat->getGa()->requestReportData($profileId, array('date','month'), array('visitors'), array('date'), null, $startDate, $endDate, 1, 100);
+
+?>
 
         <script type='text/javascript'>
 
-          // Load the Visualization API and the piechart package.
-          google.load('visualization', '1.0', {'packages':['corechart']});
-
-          // Set a callback to run when the Google Visualization API is loaded.
-          google.setOnLoadCallback(drawChart);
-
-          // Callback that creates and populates a data table,
-          // instantiates the pie chart, passes in the data and
-          // draws it.
-          function drawChart() {
-
             // Create the data table.
             var data = new google.visualization.DataTable();
-            data.addColumn('string', 'Topping');
+            data.addColumn('date', 'Date');
             data.addColumn('number', 'Unique Visitors');
-            data.addRows([";
-                //cf. http://stackoverflow.com/questions/5846879/google-analytics-api-get-specific-data-using-php
-                foreach($mpgat->getGa()->getResults() as $result){
-                     print "['" . $result->getDate() . "', " . $result->getVisitors() . "],";
-                }
-            print "]);
             
-                           
-            // Nice dates : can't get it to work...              
-            var formatter_short = new google.visualization.DateFormat({pattern: 'dd/MM/yyyy'});
-            formatter_short.format(data, 0);
-            
+            <?php
+            foreach($mpgat->getGa()->getResults() as $result){ ?>
+                
+                var thedate = "<?php print $result->getDate(); ?>";
+                var year = thedate.substring(0, 4);
+                var month = thedate.substring(4, 6) - 1; // subtract 1 since javascript months are zero-indexed
+                var day = thedate.substring(6, 8);
+                
+                data.addRow([new Date(year, month, day), <?php print $result->getVisitors(); ?>]);
+                
+            <?php } ?>
+                
             // Set chart options
-            var options = {'title':'" . $profile['name'] . "',
-                           'width':960,
-                           'height':300,
-                           // can't get nice dates to work here either
+            var options = {'title':'<?php print $profile['name']; ?>',
+                            'titleTextStyle': {
+                                'fontSize': 22,
+                            },
+                           'width':775,
+                           'height':350,
                            'hAxis': {
-                                'format': 'dd/MM/yyyy'
-                           }
+                                'format': 'd/M/yy'
+                           },
+                           'strictFirstColumnType': false,
+                           'trendlines': {
+                            0: {
+                              //type: 'exponential',
+                              color: 'darkred',
+                              visibleInLegend: false,
+                              lineWidth: 2,
+                              opacity: 0.8
+                            }
+                          },
+                          'legend': {
+                                'position': 'bottom',
+                          }
                         };
-
+                        
+            // Nice dates         
+            var mydateformatter = new google.visualization.DateFormat({pattern: 'd/M/yy'});
+            mydateformatter.format(data, 0);
+            
             // Instantiate and draw our chart, passing in some options.
-            var chart = new google.visualization.ColumnChart(document.getElementById('" . $profileId . "'));
+            var chart = new google.visualization.ColumnChart(document.getElementById("<?php print $profileId; ?>"));
             chart.draw(data, options);
-          }
-        </script>";
-  };
-  ?>
-   
-      
-    <!-- Divs that will hold the pie charts -->
-    <?php
-    foreach($mpgat->getProfiles() as $profileId => $profile) {  
-        print "<div class='chart' id='" . $profileId . "'></div>";
-    }
-    ?>
-  </body>";
+
+            </script>
+
+         <?php }; ?>
+
+    
+</body>
